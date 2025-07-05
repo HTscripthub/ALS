@@ -19,6 +19,17 @@ local window = Fluent:CreateWindow({
     MinimizeKey = Enum.KeyCode.RightControl
 })
 
+-- Lớp Tab
+local mainTab = window:AddTab({
+    Title = "Main",
+    Icon = "home"
+})
+
+local settingTab = window:AddTab({
+    Title = "Setting",
+    Icon = "settings"
+})
+
 -- Thêm hỗ trợ Logo khi minimize
 repeat task.wait(0.25) until game:IsLoaded()
 getgenv().Image = "rbxassetid://13099788281" -- ID tài nguyên hình ảnh logo
@@ -70,6 +81,8 @@ task.spawn(function()
     end
 end)
 
+-- Settings tab
+local SettingsSection = SettingsTab:AddSection("Script Settings")
 -- Integration with SaveManager
 SaveManager:SetLibrary(Fluent)
 InterfaceManager:SetLibrary(Fluent)
@@ -102,15 +115,4 @@ SettingsTab:AddParagraph({
 SettingsTab:AddParagraph({
     Title = "Phím tắt",
     Content = "Nhấn LeftControl để ẩn/hiện giao diện"
-})
-
--- Lớp Tab
-local mainTab = window:AddTab({
-    Title = "Main",
-    Icon = "home"
-})
-
-local settingTab = window:AddTab({
-    Title = "Setting",
-    Icon = "settings"
 })

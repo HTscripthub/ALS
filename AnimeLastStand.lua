@@ -125,7 +125,7 @@ task.spawn(function()
 end)
 
 -- Settings tab
-local SettingsSection = SettingsTab:AddSection("Script Settings")
+local SettingsSection = settingTab:AddSection("Script Settings")
 -- Integration with SaveManager
 SaveManager:SetLibrary(Fluent)
 InterfaceManager:SetLibrary(Fluent)
@@ -150,12 +150,12 @@ end
 AutoSaveConfig()
 
 -- Thêm thông tin vào tab Settings
-SettingsTab:AddParagraph({
+settingTab:AddParagraph({
     Title = "Cấu hình tự động",
     Content = "Cấu hình của bạn đang được tự động lưu theo tên nhân vật: " .. playerName
 })
 
-SettingsTab:AddParagraph({
+settingTab:AddParagraph({
     Title = "Phím tắt",
     Content = "Nhấn LeftControl để ẩn/hiện giao diện"
 })

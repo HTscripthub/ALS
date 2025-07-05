@@ -9,6 +9,49 @@ if not success then
     return
 end
 
+-- Hệ thống lưu trữ cấu hình
+local ConfigSystem = {}
+ConfigSystem.FileName = "KaihonALSConfig_" .. game:GetService("Players").LocalPlayer.Name .. ".json"
+ConfigSystem.DefaultConfig = {
+    -- Map Settings
+}
+ConfigSystem.CurrentConfig = {}
+
+-- Hàm để lưu cấu hình
+ConfigSystem.SaveConfig = function()
+    local success, err = pcall(function()
+        writefile(ConfigSystem.FileName, game:GetService("HttpService"):JSONEncode(ConfigSystem.CurrentConfig))
+    end)
+    if success then
+        print("Đã lưu cấu hình thành công!")
+    else
+        warn("Lưu cấu hình thất bại:", err)
+    end
+end
+
+-- Hàm để tải cấu hình
+ConfigSystem.LoadConfig = function()
+    local success, content = pcall(function()
+        if isfile(ConfigSystem.FileName) then
+            return readfile(ConfigSystem.FileName)
+        end
+        return nil
+    end)
+    
+    if success and content then
+        local data = game:GetService("HttpService"):JSONDecode(content)
+        ConfigSystem.CurrentConfig = data
+        return true
+    else
+        ConfigSystem.CurrentConfig = table.clone(ConfigSystem.DefaultConfig)
+        ConfigSystem.SaveConfig()
+        return false
+    end
+end
+
+-- Tải cấu hình khi khởi động
+ConfigSystem.LoadConfig()
+
 local window = Fluent:CreateWindow({
     Title = "Anime Last Stand",
     SubTitle = "by DuongTuan",
